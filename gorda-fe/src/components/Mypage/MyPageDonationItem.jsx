@@ -17,19 +17,16 @@ function MyPageDonationItem(props) {
     try {
       setLoading(true);
       const accounts = await web3.eth.getAccounts();
-      console.log("accounts", accounts);
       const campaign = Campaign(myDonationIdx);
 
       const result = await campaign.methods.approveRequest(0).send({
         from: accounts[0],
       });
-      console.log("result", result);
       setLoading(false);
 
       alert("성공적으로 승인했습니다.");
     } catch (err) {
       setError(err.message);
-      console.log(err);
       alert("네트워크 연결이 좋지 않습니다.");
     }
   }
@@ -76,7 +73,6 @@ function MyPageDonationItem(props) {
           size={100}
         />
       ) : null}
-      {console.log(requested)}
       <div className="item_date">{props.date}</div>
       <div className="item_title">{myDonationTitle}</div>
       <div className="block">

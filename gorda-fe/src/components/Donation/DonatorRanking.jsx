@@ -33,7 +33,7 @@ function DonatorRanking() {
                   <i className="bx bx-medal"></i> {a.userNickname}
                 </div>
                 <div>
-                  {web3.utils.fromWei(String(parseInt(a.userAmount)), "ether")}{" "}
+                  {web3.utils.fromWei(String(parseInt(a.userAmount)), "ether")}
                   eth
                 </div>
               </div>

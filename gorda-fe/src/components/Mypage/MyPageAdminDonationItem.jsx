@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import web3 from "../../smart-contract/vote-contract/web3";
 import Campaign from "../../smart-contract/donate-contract/campaign";
@@ -27,12 +26,10 @@ function MyPageAdminDonationItem(props) {
         .send({
           from: accounts[0],
         });
-      console.log("완료", result);
       alert("성공적으로 요청했습니다.");
       setLoading(false);
     } catch (err) {
       setError(err.message);
-      console.log(err);
       alert("네트워크 연결이 좋지 않습니다.");
     }
   }
@@ -41,18 +38,15 @@ function MyPageAdminDonationItem(props) {
     try {
       setLoading(true);
       const accounts = await web3.eth.getAccounts();
-      console.log("accounts", accounts);
       const campaign = Campaign(props.account);
 
       const result = await campaign.methods.finalizeRequest(0).send({
         from: accounts[0],
       });
-      console.log("result", result);
       setLoading(false);
       navigate("/dnlist");
     } catch (err) {
       setError(err.message);
-      console.log(err);
       alert("네트워크 연결이 좋지 않습니다.");
     }
   }
@@ -68,17 +62,13 @@ function MyPageAdminDonationItem(props) {
 
     async function getInfoSummary() {
       try {
-        const accounts = await web3.eth.getAccounts();
-        console.log("accounts", accounts);
         const campaign = Campaign(props.account);
-
         const result = await campaign.methods.getRequestsCount().call();
         if (result >= 1) {
           setRequested(true);
         }
       } catch (err) {
         setError(err.message);
-        console.log(err);
       }
     }
     getInfoSummary();

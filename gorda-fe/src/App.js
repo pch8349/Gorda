@@ -34,8 +34,6 @@ function App() {
     await BadgeDummy();
     await UserDummy();
     await FoundationDummy();
-    // DonationDummy();
-    // DonationCommentDummy();
     await CompanyDummy();
   };
 
@@ -67,7 +65,6 @@ function App() {
                 path="/detail/:campaignid"
                 element={<DonationDetailPage />}
               />
-              {/* <Route path="/manage" element={<DonationManage />} /> */}
             </>
           ) : (
             <>

@@ -20,29 +20,21 @@ function MypageStamp() {
     await getMyBadge(
       { userIdx: localStorage.getItem("idx") },
       (response) => {
-        response.data.data.map((sibal) => {
-          if (sibal.isMyBadgeEmpty === 1) {
+        response.data.data.map((testdata) => {
+          if (testdata.isMyBadgeEmpty === 1) {
             setStampNum((prev) => prev + 1);
           }
         });
         setMyBadge(response.data.data);
       },
       (err) => {
-        console.lof("내 뱃지데이터 가져오기 실패", err);
+        console.log("내 뱃지데이터 가져오기 실패", err);
       }
     );
   };
 
   const freshMyBadge = async () => {
-    await putMyBadge(
-      { userIdx: localStorage.getItem("idx") },
-      (response) => {
-        console.log("내 뱃지 갱신 성공", response);
-      },
-      (err) => {
-        console.log("내 뱃지 갱신 실패", err);
-      }
-    );
+    await putMyBadge({ userIdx: localStorage.getItem("idx") });
   };
 
   return (

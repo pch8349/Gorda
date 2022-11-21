@@ -9,21 +9,17 @@ function MypageCommentList(index) {
   const [donationResitTime, setDonationRegistTime] = useState("");
   const [donationCommentIdx, setDonationCommentIdx] = useState("");
 
-  // console.log(index)
   const getMyDonation = async () => {
     await getDonationByIdx(
       { donationIdx: index.donationIdx },
       (response) => {
-        console.log(index.index, ": ", response.data.data.donationName);
         setDonationName(response.data.data.donationName);
-        console.log(donationName)
       },
       (err) => {
         console.log(err);
       }
     );
   };
-
 
   const getCommentCnt = async () => {
     await getComment(
@@ -49,7 +45,6 @@ function MypageCommentList(index) {
     await deleteComment(
       { donationCommentIdx: donationCommentIdx },
       (response) => {
-        console.log("딜리트코멘토", response);
         window.location.replace("/mypage");
       },
       (err) => {

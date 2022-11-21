@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import {
-  getETHPrice,
-  getETHPriceInUSD,
-} from "../smart-contract/donate-contract/lib/getETHPrice";
 import factory from "../smart-contract/vote-contract/factory";
 import web3 from "../smart-contract/vote-contract/web3";
 import NavigationBar from "../components/NavigationBar";
 import "./AdminForm.scss";
-import FactoryList from "../components/FoundationAdmin/FactoryList";
-import axios from "axios";
 import "./voteCreation.scss";
 import apiInstance from "../api/Index";
 function VoteCreation() {
@@ -20,17 +14,12 @@ function VoteCreation() {
   const voteName = [];
   const voteIdx = [];
   const api = apiInstance();
-
-  // const [voteName, setVoteName] = useState([]);
-  // const [voteIdx, setVoteIdx] = useState([]);
-
   const [error, setError] = useState("");
 
   useEffect(() => {
     api
       .get("api/foundation/")
       .then((res) => {
-        console.log("기관 정보들", res.data.data);
         setVotedata(res.data.data);
       })
       .catch((e) => {
@@ -48,24 +37,20 @@ function VoteCreation() {
 
   const handleOnClick = async (e) => {
     const time = (new Date(voteday2) - new Date(voteday1)) / 1000;
-    console.log(time);
     e.preventDefault();
     for (let i = 0; i < voteData.length; i++) {
       voteAccount.push(voteData[i].foundationAccount);
       voteIdx.push(i);
       voteName.push(voteData[i].foundationName);
     }
-    console.log([voteAccount, voteIdx, voteName]);
 
     try {
       const accounts = await web3.eth.getAccounts();
-      console.log(voteAccount, " : ", voteName, " : ", voteIdx, " : ", time);
       const result = await factory.methods
         .createVote(voteAccount, voteName, voteIdx, time)
         .send({
           from: accounts[0],
         });
-      console.log("result", result);
     } catch (err) {
       setError(err.message);
       console.log(err);
@@ -90,12 +75,6 @@ function VoteCreation() {
             type="string"
             onChange={(e) => setvoteday2(e.target.value)}
           />
-          {/* <input
-                        type="date"
-                        onChange={(e) => {
-                            console.log(typeof e.target.value);
-                        }}
-                    /> */}
           <input
             className="creationBtn"
             type="submit"

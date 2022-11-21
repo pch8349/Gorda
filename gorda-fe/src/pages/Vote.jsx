@@ -2,40 +2,23 @@ import "./Vote.scss";
 import NavigationBar from "../components/NavigationBar";
 import { useState, useEffect } from "react";
 import apiInstance from "../api/Index";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import VoteListItem from "../components/Vote/VoteListItem";
 import factory from "../smart-contract/vote-contract/factory";
 import VoteItem from "../smart-contract/vote-contract/vote";
-import axios from "axios";
 
 function Vote() {
   let datemonth = new Date().getMonth() + 1;
   const [open, setOpen] = useState(false);
   const [voteList, setVoteList] = useState([0]);
   const [thisMonthVote, setThisMonthVote] = useState([0]);
-  const [voteProps, setVoteProps] = useState([]);
   const [foundation, setFoundation] = useState([]);
   const api = apiInstance();
-  console.log("기관 투표", voteList);
-  // 이달의 기관 (전월 기록 희망 시 -1 뒤에 추가 변수 빼기 필요)
   const voteItem = VoteItem(voteList[voteList.length - 1]);
-  const handleCalender = () => {
-    setOpen((current) => !current);
-  };
-
-  const [month, setMonth] = useState(datemonth);
-
-  const handleChange = (event) => {
-    setMonth(event.target.value);
-  };
 
   useEffect(() => {
     if (voteList) {
       async function callThisMonthVote() {
         const summary = await voteItem.methods.show().call();
-        console.log("summary", summary);
         setThisMonthVote(summary);
       }
       callThisMonthVote();
@@ -46,7 +29,6 @@ function Vote() {
     async function callVoteList() {
       const tmp = await factory.methods.getDeployedVotes().call();
       setVoteList(tmp);
-      // console.log("voteList==================", voteList);
     }
 
     callVoteList();
@@ -56,14 +38,12 @@ function Vote() {
     api
       .get("api/foundation")
       .then((res) => {
-        // console.log("투표리스트", res);
         setFoundation(res.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-  console.log(foundation);
   return (
     <>
       <NavigationBar />

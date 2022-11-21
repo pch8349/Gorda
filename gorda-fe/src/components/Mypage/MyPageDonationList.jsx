@@ -10,12 +10,10 @@ function MyPageDonationList() {
 
   useEffect(() => {
     const userIdx = localStorage.getItem("idx");
-    console.log("user", userIdx);
     api
       .get(`api/my_donation/user/${userIdx}`)
       .then((res) => {
         setInfos(res.data.data);
-        console.log("내 기부", res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -25,10 +23,7 @@ function MyPageDonationList() {
   return (
     <>
       <div className="list_title">기부내역({infos.length}건)</div>
-
       <div className="list_box">
-        {console.log("infos", infos)}
-
         {infos.map((item, key) => {
           return (
             <MyPageDonationItem
