@@ -9,26 +9,18 @@ function MyPageAdminDonationList() {
   const [infos, setInfos] = useState([]);
 
   useEffect(() => {
-    const userIdx = localStorage.getItem("idx");
-    console.log("user", userIdx);
     api
       .get(`api/donation/readall`)
       .then((res) => {
         setInfos(res.data.data);
-        console.log("내 기부", res.data.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, []);
 
   return (
     <>
       <div className="list_title">진행 중인 모금({infos.length}건)</div>
-
       <div className="list_box">
-        {console.log("infos", infos)}
-
         {infos.map((item, key) => {
           return (
             <MyPageAdminDonationItem

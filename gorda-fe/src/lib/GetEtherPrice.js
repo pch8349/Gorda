@@ -1,13 +1,10 @@
-// import fetch from "node-fetch";
 export const getETHPrice = async () => {
   try {
     const response = await fetch(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=ethereum"
     );
     const data = await response.json();
-    console.log(data)
     const ethPrice = data[0].current_price;
-    console.log(ethPrice)
     return parseFloat(parseFloat(ethPrice).toFixed(2));
   } catch (error) {
     console.log(error);
@@ -18,8 +15,8 @@ export const getWEIPriceInUSD = (usd, wei) => {
   return parseFloat(convertWeiToETH(wei) * usd).toFixed(2);
 };
 export const getETHPriceInUSD = (usd, eth) => {
-    console.log("이더, 달러", usd, eth)
-    console.log(usd)
+  console.log("이더, 달러", usd, eth);
+  console.log(usd);
   return parseFloat(eth * usd).toFixed(2);
 };
 

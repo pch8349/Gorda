@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { deleteComment } from "../api/Comment";
@@ -9,10 +9,8 @@ import { styled } from "@mui/material/styles";
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
-// import { getETHPrice, getETHPriceInUSD } from "../lib/GetEtherPrice";
 import Modal from "@mui/material/Modal";
 import Campaign from "../smart-contract/donate-contract/campaign";
-import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import Web3 from "web3";
 import web3 from "../smart-contract/donate-contract/web3";
@@ -20,7 +18,6 @@ import apiInstance from "../api/Index";
 import { putDonation } from "../api/Donation";
 import { postMyDonation } from "../api/MyDonation";
 import { putUserDonate } from "../api/Users";
-import { postComment } from "../api/Comment";
 import { getUserInfo } from "../api/Users";
 
 const style = {
@@ -40,8 +37,6 @@ function DonationDetailPage() {
   const api = apiInstance();
 
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-
   const [infos, setInfos] = useState({
     donationIdx:
       "f8ef9f089d14a37e9c540fd903a7543e661a80cdd63f3e3e2d00f79558c9b9da",
@@ -60,14 +55,9 @@ function DonationDetailPage() {
     donationEndDate: "2022-11-02T00:00:00",
   });
   const [error, setError] = useState("");
-  const [targetInUSD, setTargetInUSD] = useState();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [amountInUSD, setAmountInUSD] = useState();
-  const [targetEth, setTargetEth] = useState("");
-  const [balanceEth, setBalanceEth] = useState("");
-  const [date, setDate] = useState("");
   const id = useParams();
-  const [address, setAddress] = useState("");
   const [foundation, setFoundation] = useState([]);
   const campaignItem = Campaign(infos.donationAccount);
   campaignItem.options.address = campaignItem.options.campaignid;
@@ -77,9 +67,6 @@ function DonationDetailPage() {
   });
 
   const [wallet_eth, setWallet_eth] = useState(0);
-
-  const [userInfo, setUserInfo] = useState({});
-
   const [progress, setProgress] = useState(0);
   const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 10,
@@ -121,12 +108,10 @@ function DonationDetailPage() {
 
         const web3 = new Web3(currentProvider);
         const userAccount = await web3.eth.getAccounts();
-        // const chainId = await web3.eth.getChainId();
         const account = userAccount[0];
         let ethBalance = await web3.eth.getBalance(account); // Get wallet balance
         ethBalance = web3.utils.fromWei(ethBalance, "ether"); //Convert balance to wei
         setWallet_eth(ethBalance);
-        // saveUserInfo(ethBalance, account, chainId);
         if (userAccount.length === 0) {
           console.log("Please connect to meta mask");
         } else {
@@ -159,7 +144,6 @@ function DonationDetailPage() {
     if (window.ethereum) {
       provider = window.ethereum;
     } else if (window.web3) {
-      // eslint-disable-next-line
       provider = window.web3.currentProvider;
     } else {
       console.log(
@@ -168,8 +152,6 @@ function DonationDetailPage() {
     }
     return provider;
   };
-
-  console.log();
   async function onSubmit(data) {
     alert("정말 기부하시겠습니까?");
 
@@ -184,13 +166,11 @@ function DonationDetailPage() {
         from: accounts[0],
         value: web3.utils.toWei(String(data.donation), "ether"),
       });
-      console.log("result", result);
       setAmountInUSD(null);
       reset("", {
         keepValues: false,
       });
       setIsSubmitted(true);
-      console.log(isSubmitted);
 
       await putDonation(
         {
@@ -199,7 +179,6 @@ function DonationDetailPage() {
         },
         (response) => {
           setComment(response.data.data);
-          console.log("도네이션 넣기 성공", response);
         },
         (err) => {
           console.log(err);
@@ -261,7 +240,6 @@ function DonationDetailPage() {
         console.log(e);
       });
   };
-  console.log(id);
 
   useEffect(() => {
     api
@@ -293,9 +271,6 @@ function DonationDetailPage() {
       .get(`api/donation/${id.campaignid}`)
       .then((res) => {
         setInfos(res.data.data);
-        console.log("==", res.data.data.donationCurrentEth);
-        console.log("==", res.data.data.donationTargetEth);
-
         setProgress(
           (res.data.data.donationCurrentEth / res.data.data.donationTargetEth) *
             100
@@ -331,7 +306,6 @@ function DonationDetailPage() {
       }
     );
   };
-  console.log(comm);
   const [userName, setUserName] = useState("");
   const getNickName = async () => {
     await getUserInfo(
@@ -547,13 +521,7 @@ function DonationDetailPage() {
                   <div className="donationCost">
                     <span>{inputValue}</span> eth
                   </div>
-                  {inputValue ? (
-                    <div className="dollar">
-                      {/* ~$달러 {getETHPriceInUSD(ethPrice, inputValue)} */}
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                  {inputValue ? <div className="dollar"></div> : ""}
                 </div>
                 <div className="modal_p">당신의 마음을 표현해주세요</div>
                 <button type="submit" className="donBtn">

@@ -30,10 +30,8 @@ function AdminForm() {
 
   async function onSubmit(data) {
     data.foundation = data.foundation.split(",");
-    console.log(data.foundation);
     const tmpCompanyArr = [];
     const tmpAmountArr = [];
-    console.log("dsasdasdas", data);
     for (let i = 0; i < inputValue.length; i++) {
       if (inputValue[i][0] === "0") {
         tmpCompanyArr.push(data.foundation[0]);
@@ -84,7 +82,6 @@ function AdminForm() {
           foundationIdx: data.foundation[1],
         })
         .then((res) => {
-          console.log("성공");
           setLoading(false);
           alert("기부가 생성되었습니다.");
           navigate("/dnlist");

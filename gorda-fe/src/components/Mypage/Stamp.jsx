@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Stamp.scss";
-import testImg from "../../images/test.jpg";
 
 function Stamp(data) {
   const [stampData, setStampData] = useState([]);

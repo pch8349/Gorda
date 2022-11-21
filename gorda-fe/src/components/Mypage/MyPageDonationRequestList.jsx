@@ -19,13 +19,9 @@ function MyPageDonationRequestList() {
       </div>
       <div className="list_box">
         <MyPageDonationItem />
-
         <MyPageDonationItem />
-
         <MyPageDonationItem />
-
         <MyPageDonationItem />
-
         <MyPageDonationItem />
       </div>
     </>

@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Web3 from "web3";
 import "./NavigationBar.scss";
 import useLogin from "../hooks/useLogin";
 
 function NavigationBar() {
   const login = useLogin();
-  console.log(window.localStorage.Role);
   return (
     <section id="nav">
       <div className="header container">
