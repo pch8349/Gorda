@@ -1,6 +1,7 @@
 import web3 from "./web3";
 import CampaignFactory from "./build/CampaignFactory.json";
 
+// deploy.js 후 생성된 Contract 주소 추가하기
 const instance = new web3.eth.Contract(
   CampaignFactory.abi,
   "0x478c09404A213E4b9fE270a4b7D5d06f574733E7"
