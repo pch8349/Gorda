@@ -5,9 +5,10 @@ const compiledFactory = require("./build/CampaignFactory.json");
 
 require("dotenv").config();
 
+// Metamask Mnemonic, Infura API Key
 const provider = new HDWalletProvider(
-  "lawn myself please horse best tree school pink tower parent cruise uphold",
-  "https://goerli.infura.io/v3/1f2be1d46c0a4d7187aeb24a9ac59c36"
+  "test test test test test test test test test test test test",
+  "https://goerli.infura.io/v3/test"
 );
 
 const web3 = new Web3(provider);

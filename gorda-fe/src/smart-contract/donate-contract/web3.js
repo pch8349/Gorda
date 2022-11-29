@@ -1,18 +1,26 @@
-import Web3 from "web3";
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
-let web3;
+const Web3 = require("web3");
+const compiledFactory = require("./build/VoteFactory.json");
 
-if (typeof window !== "undefined" && typeof window.web3 !== "undefined") {
-  // we are in the browser and meta mask is installed
-  web3 = new Web3(window.web3.currentProvider);
-} else {
-  // we are on the server *OR* meta mask is not running
-  // creating our own provider
-  const provider = new Web3.providers.HttpProvider(
-    "https://goerli.infura.io/v3/1f2be1d46c0a4d7187aeb24a9ac59c36"
-  );
+require("dotenv").config();
 
-  web3 = new Web3(provider);
-}
+// Metamask Mnemonic, Infura API Key
+const provider = new HDWalletProvider(
+  "test test test test test test test test test test test test",
+  "https://goerli.infura.io/v3/test"
+);
 
-export default web3;
+const web3 = new Web3(provider);
+const deploy = async () => {
+  const accounts = await web3.eth.getAccounts();
+  console.log("Attemping to deploy to accounts ", accounts[0]);
+  console.log(compiledFactory.abi);
+  const result = await new web3.eth.Contract(compiledFactory.abi)
+    .deploy({ data: compiledFactory.evm.bytecode.object })
+    .send({ from: accounts[0] });
+
+  console.log("Contract deploy to ", result.options.address);
+};
+
+deploy();
