@@ -73,7 +73,7 @@
     - 단순히 동정심 유발로 기부에 대한 관심을 끌기에 역부족. 재미, 투명성, 접근 기회 증가를 통해 사용자들을 끌어모을 필요가 있음.
     
     
- ![image](https://user-images.githubusercontent.com/61184927/234838642-aff74d84-9dee-416e-9fd6-f071c4ceb665.png
+![image](https://user-images.githubusercontent.com/61184927/234838890-2b98273b-cfac-4603-ad91-68c6c42216e4.png)
 
 
 ## 해결 방안
