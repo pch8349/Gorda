@@ -1,6 +1,7 @@
 <div align="center">
 <h1> 고르다(Gorda)에 오신걸 환영합니다.</h1>
 </div>
+![프로필 이미지](/readme.asset/기부글작성1.png)
 
 ## 목차
 
