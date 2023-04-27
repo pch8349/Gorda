@@ -1,7 +1,6 @@
 <div align="center">
 <h1> 고르다(Gorda)에 오신걸 환영합니다.</h1>
 </div>
-![프로필 이미지](/readme.asset/기부글작성1.png)
 
 ## 목차
 
@@ -58,7 +57,7 @@
 <div id="3"> </div>
 
 ## 🛠 Architecture
-![image](/uploads/130e82d3f709b13d07521d1df2f362a2/image.png)
+![기부글작성1 이미지](/readme.asset/아키텍쳐.png)
 <br><br><br><br>
 
 
@@ -75,6 +74,12 @@
     
     
 ![image](https://user-images.githubusercontent.com/61184927/234838890-2b98273b-cfac-4603-ad91-68c6c42216e4.png)
+
+![기부글작성1 이미지](/readme.asset/기부글작성1.png)
+![기부글작성2 이미지](/readme.asset/기부글작성2.png)
+![기부글작성3 이미지](/readme.asset/기부글작성3.png)
+![기부하기1 이미지](/readme.asset/기부하기1.png)
+![투표하기1 이미지](/readme.asset/투표하기1.png)
 
 
 ## 해결 방안
